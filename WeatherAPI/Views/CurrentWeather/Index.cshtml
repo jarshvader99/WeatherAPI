@@ -1,0 +1,39 @@
+﻿@model WeatherAPI.Models.CurrentWeatherModel;
+
+@{
+    ViewData["Title"] = "Day Ahead";
+
+}
+
+<form method="post">
+    <fieldset>
+        <div class="search-city">
+            <label for="CityName"></label>
+            <input type="text" name="CityName" value="" placeholder="Search for your city" />
+            <input type="submit" value="Search" class="submit" />
+        </div>
+    </fieldset>
+</form>
+
+@foreach (var item in Model.Data)
+{
+<div class="card-container">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="temperature-card-left">
+                    <p class="as-of">As of @Html.DisplayFor(modelItem => item.Datetime)</p>
+                    <h5 class="temperature">@Html.DisplayFor(modelItem => item.Temp)&deg;</h5>
+                    <p class="weather-description">@Html.DisplayFor(modelItem => item.Weather.Description)</p>
+                </div>
+                @{
+                    string pictureCode = @item.Weather.Icon;
+                    pictureCode += ".png";
+                } 
+                <div class="temperature-card-right"><img class="weather-icon"src="/images/@pictureCode" /></div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+}
