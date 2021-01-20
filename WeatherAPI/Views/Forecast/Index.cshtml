@@ -1,0 +1,58 @@
+﻿@model WeatherAPI.Models.Root;
+
+@{
+    ViewData["Title"] = "3 Day Forecast";
+
+}
+
+<form method="post">
+    <fieldset>
+        <div class="search-city">
+            <label for="City"></label>
+            <input type="text" name="City" placeholder="Search for your city" />
+            <input type="submit" value="Search" class="submit" />
+        </div>
+    </fieldset>
+</form>
+@if (Model != null)
+{
+    <div class="card-container">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="temperature-card-left">
+                        <p class="as-of">@Model.Location.Name, @Model.Location.Region, @Model.Location.Country</p>
+                        <p class="as-of">As of @Model.Location.Localtime</p>
+                        <h5 class="temperature">@Model.Current.temp_f&deg;</h5>
+                        <p class="weather-description">@Model.Current.Condition.Text</p>
+                    </div>
+                    @{
+                        string pictureCode = Model.Current.Condition.Icon;
+                    }
+                    <div class="temperature-card-right"><img class="weather-icon" src="@pictureCode" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @foreach (var item in Model.Forecast.Forecastday)
+    {
+        <div class="card-container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p class="as-of">@item.Date</p>
+                            <p class="as-of">Sunrise: @item.Astro.Sunrise</p>
+                            <p class="as-of">Sunset: @item.Astro.Sunset</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p class="as-of">@item.Day.Condition.Text</p>
+                            <p class="as-of">High: @item.Day.maxtemp_f</p>
+                            <p class="as-of">Low: @item.Day.mintemp_f</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

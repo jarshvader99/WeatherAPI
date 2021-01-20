@@ -44,6 +44,7 @@ body {
     background: linear-gradient(to bottom, #1e5799 0%,#207cca 0%,#2989d8 51%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
     border-radius: 1rem;
+    margin-top: 1rem;
 }
 
 .card-container h5 {
