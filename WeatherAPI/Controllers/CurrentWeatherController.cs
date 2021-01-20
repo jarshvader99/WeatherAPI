@@ -60,7 +60,7 @@ namespace WeatherAPI.Controllers
                 client.DefaultRequestHeaders.Clear();
                 //Define request data format  
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("x-rapidapi-key", "1cea7965f6mshe85b862d442ea49p135f78jsne09da033f7b4");
+                client.DefaultRequestHeaders.Add("x-rapidapi-key", "...");
                 client.DefaultRequestHeaders.Add("x-rapidapi-host", "weatherbit-v1-mashape.p.rapidapi.com");
 
                 //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
