@@ -36,6 +36,58 @@ body {
     }
 }
 
+.news-body h2 a {
+    color: #0071bc;
+}
+
+.search {
+    margin-top: 1em;
+}
+
+.news-body ul {
+    list-style: none;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding: unset;
+}
+
+.news-card-container {
+    border: 1px solid #dedede;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.news-content {
+    color: #0071bc;
+}
+.news-title {
+    padding-top: 1em;
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+.news-photo {
+    width: 100%;
+}
+
+.row-center {
+    text-align: center;
+}
+
+.col-centered {
+    display: inline-block;
+    float: none;
+    /* reset the text-align */
+    text-align: left;
+    /* inline-block space fix */
+    margin-right: -4px;
+}
+
+.description {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
 .card-container {
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1e5799+0,207cca+0,2989d8+51,7db9e8+100 */
     background: #1e5799; /* Old browsers */
@@ -55,6 +107,10 @@ body {
     margin-left: 3rem;
 }
 
+.chart {
+    margin: 1rem;
+}
+
 .as-of {
     padding-top: 1rem;
 }
@@ -70,6 +126,7 @@ body {
 .search-city {
     margin-top: 3em;
     margin-bottom: 3rem;
+    text-align: center;
 }
 .temperature-card-left {
     float: left;

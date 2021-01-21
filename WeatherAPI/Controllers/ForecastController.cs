@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,13 @@ namespace WeatherAPI.Controllers
 {
     public class ForecastController : Controller
     {
+        private readonly IConfiguration _config;
+
+        public ForecastController(IConfiguration config)
+        {
+            _config = config;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -20,6 +28,7 @@ namespace WeatherAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string City)
         {
+            var rapidApiKey = _config["RapidApi:apiKey"];
             //CurrentWeatherModel WeatherInfo = new CurrentWeatherModel();
             Root forecastInfo = new Root();
             string Baseurl = "https://localhost:44319/";
@@ -32,7 +41,7 @@ namespace WeatherAPI.Controllers
                 client.DefaultRequestHeaders.Clear();
                 //Define request data format  
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("x-rapidapi-key", "1cea7965f6mshe85b862d442ea49p135f78jsne09da033f7b4");
+                client.DefaultRequestHeaders.Add("x-rapidapi-key", rapidApiKey);
                 client.DefaultRequestHeaders.Add("x-rapidapi-host", "weatherapi-com.p.rapidapi.com");
 
                 //Sending request to find web api REST service resource GetAllEmployees using HttpClient  

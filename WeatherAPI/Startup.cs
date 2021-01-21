@@ -14,6 +14,8 @@ namespace WeatherAPI
 {
     public class Startup
     {
+        private string _rapidApiKey = null;
+        private string _newsApiKey = null;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,7 +33,8 @@ namespace WeatherAPI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            _rapidApiKey = Configuration["RapidApi:apiKey"];
+            _newsApiKey = Configuration["NewsApi:apiKey"];
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using WeatherAPI.Models;
 
@@ -10,16 +13,42 @@ namespace WeatherAPI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _config;
+
+        public HomeController(IConfiguration config)
+        {
+            _config = config;
+        }
         public IActionResult Index()
         {
-            return View();
+            var newsApiKey = _config["NewsApi:apiKey"];
+            HeadlineModel articles = new HeadlineModel();
+            var url = "http://newsapi.org/v2/top-headlines?" +
+          "country=us&" +
+          "apiKey=" + newsApiKey;
+
+            var json = new WebClient().DownloadString(url);
+            articles = JsonConvert.DeserializeObject<HeadlineModel>(json);
+            return View(articles);
         }
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
 
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult About(string query)
+        {
+            var newsApiKey = _config["NewsApi:apiKey"];
+            HeadlineModel articles = new HeadlineModel();
+            var url = "http://newsapi.org/v2/everything?q=" + query +
+            "&apiKey=" + newsApiKey;
+
+            var json = new WebClient().DownloadString(url);
+            articles = JsonConvert.DeserializeObject<HeadlineModel>(json);
+            return View(articles);
         }
 
         public IActionResult Contact()

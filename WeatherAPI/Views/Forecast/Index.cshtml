@@ -8,9 +8,8 @@
 <form method="post">
     <fieldset>
         <div class="search-city">
-            <label for="City"></label>
-            <input type="text" name="City" placeholder="Search for your city" />
-            <input type="submit" value="Search" class="submit" />
+            <input type="text" class="form-control" name="City" placeholder="Search for your city" />
+            <input type="submit" value="Search" class="btn btn-primary search" />
         </div>
     </fieldset>
 </form>
@@ -34,6 +33,14 @@
             </div>
         </div>
     </div>
+
+    <div Style="font-family: Corbel; font-size: small; text-align: center" class="row chart">
+        <div style="width: 100%; height: 100%">
+            <canvas id="myChart" style="padding: 0; margin: auto; display: block;"> </canvas>
+        </div>
+    </div>
+
+    int colorCount = 0;
     @foreach (var item in Model.Forecast.Forecastday)
     {
         <div class="card-container">
@@ -41,18 +48,77 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-xs-6">
-                            <p class="as-of">@item.Date</p>
+                            <p class="as-of" id="forecast-date-@colorCount" data-value="@item.Date">@item.Date</p>
                             <p class="as-of">Sunrise: @item.Astro.Sunrise</p>
                             <p class="as-of">Sunset: @item.Astro.Sunset</p>
                         </div>
                         <div class="col-xs-6">
                             <p class="as-of">@item.Day.Condition.Text</p>
-                            <p class="as-of">High: @item.Day.maxtemp_f</p>
-                            <p class="as-of">Low: @item.Day.mintemp_f</p>
+                            <p class="as-of" id="high-@colorCount" data-count="@colorCount" data-value="@item.Day.maxtemp_f">High: @item.Day.maxtemp_f</p>
+                            <p class="as-of" id="low-@colorCount" data-count="@colorCount" data-value="@item.Day.mintemp_f">Low: @item.Day.mintemp_f</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        colorCount++;
     }
+
+
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var high0 = document.getElementById('high-0').getAttribute('data-value');
+    var high1 = document.getElementById('high-1').getAttribute('data-value');
+    var high2 = document.getElementById('high-2').getAttribute('data-value');
+
+    var low0 = document.getElementById('low-0').getAttribute('data-value');
+    var low1 = document.getElementById('low-1').getAttribute('data-value');
+    var low2 = document.getElementById('low-2').getAttribute('data-value');
+
+    var date0 = document.getElementById('forecast-date-0').getAttribute('data-value');
+    var date1 = document.getElementById('forecast-date-1').getAttribute('data-value');
+    var date2 = document.getElementById('forecast-date-2').getAttribute('data-value');
+
+    var color0 = "rgba(243, 124, 65, 0.1)"; var borderColor0 = "#F37C41";
+    var color1 = "rgba(65, 136, 243, 0.1)"; var borderColor1 = "#4188F3";
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [date0, date1, date2],
+            datasets: [{
+                label: 'High',
+                data: [high0, high1, high2],
+                backgroundColor: [
+                    color0
+                ],
+                borderColor: [
+                    borderColor0
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'Low',
+                data: [low0, low1, low2],
+                backgroundColor: [
+                    color1
+                ],
+                borderColor: [
+                    borderColor1
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            }
+        }
+    });
+</script>
 }
